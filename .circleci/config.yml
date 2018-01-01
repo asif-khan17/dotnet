@@ -2,7 +2,7 @@ version: 2
 jobs:
   build: 
     docker:
-        - image: asif121/testapplication
+        - image: microsoft/dotnet:sdk
     steps:
       - checkout 
       - setup_remote_docker
