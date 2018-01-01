@@ -3,7 +3,6 @@ jobs:
   build: 
     docker:
         - image: microsoft/dotnet:sdk
-        - image: docker:17.05.0-ce-git
     steps:
       - checkout 
       - setup_remote_docker
@@ -13,7 +12,10 @@ jobs:
       - run:
           name: Build Project
           command: dotnet build 
+      - run:
+            command: dotnet publish -o published
       - deploy:
           command: |
-             chmod +x ./deploy.sh
-             sh ./deploy.sh
+            docker build -t asif121/testapplication:latest .
+            docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+            docker push asif121/testapplication:latest
