@@ -3,6 +3,7 @@ jobs:
   build: 
     docker:
         - image: microsoft/dotnet:sdk
+        - image: docker:17.05.0-ce-git
     steps:
       - checkout 
       - setup_remote_docker
