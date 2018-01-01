@@ -5,17 +5,15 @@ jobs:
         - image: rushi216/aspnetcore-build
     steps:
       - checkout 
-      - setup_remote_docker
+      - setup_remote_docker                     
       - run:
           name: Restore Nuget
           command: dotnet restore 
       - run:
           name: Build Project
           command: dotnet build 
-      - run:
-            command: dotnet publish -o published
+           
       - deploy:
           command: |
-            docker build -t asif121/testapplication:latest .
-            docker login -u=$DOCKER_USER -p=$DOCKER_PASSWORD
-            docker push asif121/testapplication:latest
+           chmod +x ./deploy.sh
+           sh deploy.sh
