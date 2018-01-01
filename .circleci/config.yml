@@ -1,0 +1,18 @@
+version: 2
+jobs:
+  build: 
+    docker:
+        - image: asif121/testapplication
+    steps:
+      - checkout 
+      - setup_remote_docker
+      - run:
+          name: Restore Nuget
+          command: dotnet restore 
+      - run:
+          name: Build Project
+          command: dotnet build 
+      - deploy:
+          command: |
+             chmod +x ./deploy.sh
+             sh deploy.sh
